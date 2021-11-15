@@ -7,7 +7,7 @@
 // De la siguiente forma podemos cargar elementos teniendo el enlace
 // de script en el head, debemos colocar todo dentro de la función
 // para que se ejecute correctamente
-let numeros = [];
+let numeros = [3, 2, 1, -1, 234];
 let interruptor = true;
 // console.log(numeros);
 const init = () => {
@@ -17,7 +17,8 @@ const init = () => {
     let output = document.querySelector(".salida"); // es la 2ª etiqueta article
     let btnBorrar = document.querySelector(".btn-secondary");
     let success = document.querySelector(".alert-success");
-    
+    let btnOrdenar = document.getElementById("ordenar");//botón que permite ordenar
+
 
 
     let ul = null;
@@ -48,7 +49,24 @@ const init = () => {
             ul.innerHTML = "";
         }
     }
-    
+
+    const ordenarArray = () => {
+        //reorremos array
+        for (let x = 0; x < numeros.length; x++) {
+            for (let i = x; i < numeros.length; i++) {
+                if (numeros[x] > numeros[i]) {
+                    //intercambio de valores
+                    let temporal = numeros[i]; //guardamos temporalmente el primer valor del array
+                    // intercambiamos posiciones 
+                    numeros[i] = numeros[x];
+                    numeros[x] = temporal;
+
+                }
+            }
+        }
+        console.log(numeros)
+    }
+
     // Eventos
     form.addEventListener(
         "submit",
@@ -57,12 +75,12 @@ const init = () => {
             numeros.push(Number(input.value));
             // console.log(numeros);
             console.log(interruptor);
-            
+
             if (interruptor) {
                 interruptor = false;
                 console.log(interruptor);
                 crearUl();
-                
+
             }
             crearLi(numeros);
             success.innerHTML = `Array[${numeros}]`
@@ -70,10 +88,16 @@ const init = () => {
     );
 
     //  con la siguiente función borraremos los LIs
-        btnBorrar.addEventListener(
-            "click",
-            deleteLi
-        );
+    btnBorrar.addEventListener(
+        "click",
+        deleteLi
+    );
+
+    // botón para ordenar array
+    btnOrdenar.addEventListener(
+        "click",
+        ordenarArray
+    );
 
 }
 
